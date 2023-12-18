@@ -1,0 +1,58 @@
+{% include "header.html" %}
+
+<link rel="stylesheet" type="text/css" href="/static/assets/css/index.css">
+
+    <div class="app-content content" id="indexdiv">
+        <div class="content-overlay"></div>
+            <div class="content-wrapper">
+            <section class="row">
+                <div class="col-3 mt-2 ml-1 p-2 border border-secondary rounded-lg" style="display: flex; align-items:center; cursor: pointer"
+                onclick="manualDownload(0)">
+                    <div class="row" style="display: flex; align-items:center;">
+                        <div class="col-2">
+                            <img src="/static/img/pdf.png" style="width: 100%;">
+                            </div>
+                        <div class="col-8">
+                            <h3 class="font">제품설명서 다운로드</h3>
+                        </div>
+                        <div class="col-2 text-right">
+                            <h3><i class="ft ft-download secondary"></i></h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-3 mt-2 ml-1 p-2 border border-secondary rounded-lg" style="display: flex; align-items:center; cursor: pointer"
+                onclick="manualDownload(1)">
+                    <div class="row" style="display: flex; align-items:center;">
+                        <div class="col-2">
+                            <img src="/static/img/pdf.png" style="width: 100%;">
+                            </div>
+                        <div class="col-8">
+                            <h3 class="font">사용자매뉴얼 다운로드</h3>
+                        </div>
+                        <div class="col-2 text-right">
+                            <h3><i class="ft ft-download secondary"></i></h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                <form action="/manualDownload/" method="POST" id="aForm" target="_blank">
+                <input type="hidden" value="" name="sq">
+                {% csrf_token %}
+                </form>
+
+            </div>
+        </div>
+        <img src="/static/img/index.png" id="indeximage">
+    </div>
+
+<script>
+
+function manualDownload(sq){
+    var form = $('#aForm');
+    $('input[name="sq"]').val(sq)
+    form.submit();
+}
+</script>
+{% include "footer.html" %}

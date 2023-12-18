@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="PIXINVENT">
+    <title>KAID - 권한 에러</title>
+    <link rel="apple-touch-icon" href="/static/img/symbol_red.png">
+    <link rel="shortcut icon" href="/static/img/symbol_red.png" type="image/x-icon">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/vendors.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/vendors/css/ui/prism.min.css' %}">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/bootstrap-extended.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/colors.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/components.css' %}">
+    <!-- END: Theme CSS-->
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/colors/palette-gradient.css' %}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+    <!-- END: Custom CSS-->
+  </head>
+  <body class="vertical-layout vertical-menu 1-column menu-expanded blank-page blank-page" data-open="click" data-menu="vertical-menu" data-col="1-column">
+
+<link rel="stylesheet" type="text/css" href="/static/assets/css/error.css">
+<link rel="stylesheet" type="text/css" href="/static/app-assets/css/error_body.css">
+
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+    <div class="app-content content">
+      <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body" id="errorcontent">
+
+          <section class="flexbox-container">
+              <br><br>
+              <div class="col-12 d-flex align-items-center justify-content-center">
+                  <div class="col-md-4 col-10 box-shadow-2 p-0">
+                      <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
+                          <div class="card-header border-0 text-center">              
+                              <div class="card-title text-center">
+                                  <img src="/static/img/warning.png" id="errorcontentimg">
+                              </div>
+                          </div>
+                          <div class="card-content text-center" id="errorcontentcard">
+                              <p id="errorcontentcardp">권한이 허락되지 않은 요청입니다.</p>
+                              <p id="errorcontentcardpp">관리자에게 문의해주세요.</p>
+                              <br>
+                              <p><a type="button" class="btn btn-outline-secondary rounded-pill" href="/">Home 이동</a></p>
+                              <br>
+                              <img src="/static/img/KAID CI_br.png" alt="branding logo" id="errorcontentcardimage">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <br><br>
+          </section>
+
+        </div>
+      </div>
+    </div>
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+  </body>
+</html>
