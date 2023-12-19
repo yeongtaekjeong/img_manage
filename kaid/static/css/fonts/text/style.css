@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'KoPub';
+    font-style: 'normal';
+    font-weight: 300;
+    src: url("fonts/KoPub.ttf");
+}
+
+body {
+    font-family: 'KoPub';
+    transform : rotate(0.03deg);
+}

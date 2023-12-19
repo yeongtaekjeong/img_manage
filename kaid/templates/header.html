@@ -1,116 +1,20 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html class="loading" data-textdirection="ltr">
+<html data-textdirection="ltr">
 
 <head>
-<link rel="apple-touch-icon" href="/static/img/ki_ci.png">
-<link rel="shortcut icon" href="/static/img/ki_ci.png" type="image/x-icon">
-
+<link rel="apple-touch-icon" href="/static/img/agcomm_logo.png">
+<link rel="shortcut icon" href="/static/img/agcomm_logo.png" type="image/x-icon">
 </head>
 
 
-<body class="vertical-layout vertical-compact-menu 2-columns" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
+<body>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-<meta name="keywords" content="admin, kaid">
-<meta name="author" content="jyjeon">
-<title>품질팀 데이터 분석 지원 플랫폼</title>
+<meta name="author" content="kaid">
+<title>ag communications Images</title>
 
 
-<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/vendors.min.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/bootstrap-extended.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/colors.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/components.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/core/menu/vertical-compact-menu.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/plugins/forms/wizard.css">
-<link rel="stylesheet" type="text/css" href="/static/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/css/plugins/forms/checkboxes-radios.css">
-
-<!--<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/tables/datatable/datatables.min.css">-->
-<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/tables/extensions/rowReorder.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/tables/extensions/responsive.dataTables.min.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/ui/jquery-ui.min.css">
-<link rel="stylesheet" type="text/css" href="/static/app-assets/vendors/css/forms/selects/select2.min.css">
-<link rel="stylesheet" type="text/css" href="/static/assets/css/header.css">
-
-
-<!--<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-shadow navbar-brand-center" id="headernav">-->
-<!-- <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-shadow navbar-brand-center" >
--->
-<!--        <div class="navbar-wrapper">-->
-<!--            <div class="navbar-header">-->
-<!--                <ul class="nav navbar-nav flex-row">-->
-<!--                    <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>-->
-
-<!--                    <li class="nav-item"><a class="navbar-brand" href="/"><img alt="modern admin logo" src="/static/img/KAID CI_rwr.png" id="headerliimage">-->
-
-<!--                        </a></li>-->
-<!--                    <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v"></i></a></li>-->
-<!--                </ul>-->
-
-<!--            </div>-->
-<!--            <div class="navbar-container content">-->
-<!--                <div class="collapse navbar-collapse" id="navbar-mobile">-->
-<!--                    <ul class="nav navbar-nav mr-auto float-left">-->
-<!--                        <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>-->
-<!--                        &lt;!&ndash; <li class="nav-item d-none d-lg-block"><a class="nav-link white nav-link-expand" href="#"><i class="ficon ft-maximize"></i></a></li> &ndash;&gt;-->
-<!--                    </ul>-->
-<!--                    <ul class="nav navbar-nav float-right">-->
-<!--                        <li class="nav-item d-none d-lg-block">-->
-<!--                            <div class="form-group">-->
-<!--                                <div class="btn-group mt-1 mr-2" role="group" aria-label="Basic example">-->
-<!--                                    {{username}}-->
-<!--                                </div>-->
-<!--                                <div class="btn-group mt-1" role="group" aria-label="Basic example">-->
-<!--                                    {% if user.is_authenticated %}-->
-<!--                                    <a href="/accounts/logout"><button class="menu-title font btn btn-outline-white"><i class="ft-log-out"></i> 로그아웃</button></a>-->
-<!--                                    {% else %}-->
-<!--                                    <a href="/accounts/login"><button class="menu-title font btn btn-outline-white"><i class="ft-log-out"></i> 로그인</button></a>-->
-<!--                                    {% endif %}-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </nav>-->
-
-    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true" id="headerdivmenu">
-        <div class="main-menu-content">
-            <div class="mt-2 p-1"><a class="navbar-brand" href="/"><img alt="modern admin logo" src="/static/img/ki_ci.png" id="headerliimage"></a></div>
-            <div class="form-group" >
-                <div class="p-1">{{username}}</div>
-                <div class="btn-group w-100">
-                    {% if user.is_authenticated %}
-                    <a href="/accounts/logout" style="margin: auto;"><button class="menu-title font btn btn-outline-white" ><i class="ft-log-out"></i> 로그아웃</button></a>
-                    {% else %}
-                    <a href="/accounts/login" style="margin: auto;"><button class="menu-title font btn btn-outline-white"><i class="ft-log-out"></i> 로그인</button></a>
-                    {% endif %}
-                </div>
-            </div>
-            <ul class="navigation navigation-main headerul" id="main-menu-navigation" data-menu="menu-navigation">
-
-                {% if 'kaid.view_inspection' in perms %}
-<!--                <li class="nav-item {% if category == 'inspection' %}active {% endif %}"><a href="/inspection"><i class="ft-package"></i><span class="menu-title font">데이터 분석</span></a></li>-->
-                <li class="nav-item {% if category == 'product' %}active {% endif %}"><a href="/product"><i class="ft-database"></i><span class="menu-title font">제품 DB</span></a></li>
-                {% endif %}
-                {% if 'kaid.view_manage' in perms %}
-                <li class="nav-item {% if category == 'manage' %}active {% endif %}"><a href="/manage"><i class="ft-settings"></i><span class="menu-title font">플랫폼 관리</span></a></li>
-                {% endif %}
-                {% if 'kaid.view_auth' in perms %}
-                <li class="nav-item {% if category == 'auth' %}active {% endif %}"><a href="/auth"><i class="ft-user"></i><span class="menu-title font">계정 관리</span></a></li>
-                {% endif %}
-            </ul>
-
-        </div>
-
-    </div>
-
-<a class="nav-menu-main menu-toggle hidden-xs" href="#" style="display: flex; position: fixed; z-index: 9999; top: 0;">
-    <i class="ft-menu secondary" style="opacity: 0.5; font-size: 20px"></i>
-</a>
+<link rel="stylesheet" type="text/css" href="/static/css/core/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/static/css/fonts/text/style.css">
+<link rel="stylesheet" type="text/css" href="/static/css/fonts/feather/style.css">

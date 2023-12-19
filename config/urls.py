@@ -2,6 +2,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from kaid.views import system_views
+from django.urls import re_path as url
 
 urlpatterns = [
     # system_views.py

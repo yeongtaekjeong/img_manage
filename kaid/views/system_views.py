@@ -1,11 +1,4 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from django.contrib.auth.models import User, Group, Permission
-from django.http import FileResponse
-from django.core.files.storage import FileSystemStorage
-import os
+from django.shortcuts import render
 
 #######################################################################################################################
 # 1. MethodName : [1]index

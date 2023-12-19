@@ -33,6 +33,7 @@ if platform.system() == 'Windows':
 
 # Application definition
 INSTALLED_APPS = [
+    'kaid.apps.KaidConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
