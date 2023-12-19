@@ -1,0 +1,20 @@
+{% include "header.html" %}
+<style>
+img { border-radius: 0.7em; }
+
+</style>
+{% csrf_token %}
+<div class="container-fluid search">
+    <section>
+        <div class="row p-2 mb-3">
+            <div class="col">
+                <img src="/static/img/index.png" width="8%">
+            </div>
+        </div>
+    </section>
+    <section class="list">
+
+    </section>
+</div>
+{% include "footer.html" %}
+<script src="/static/js/list.js"></script>

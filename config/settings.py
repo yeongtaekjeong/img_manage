@@ -23,10 +23,14 @@ APPEND_SLASH = True
 # 서버
 if platform.system() == 'Linux':
     DEBUG = False
+    MEDIA_ROOT = '/mnt'
+    MEDIA_URL = '/media/'
 
 # 로컬
 if platform.system() == 'Windows':
     DEBUG = True
+    MEDIA_ROOT = 'D:/mnt'
+    MEDIA_URL = '/media/'
 
 # Application definition
 INSTALLED_APPS = [
@@ -102,9 +106,6 @@ USE_L10N = True
 USE_TZ = False
 
 STATIC_ROOT = ''
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (BASE_DIR, 'static')
