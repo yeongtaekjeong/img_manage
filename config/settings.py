@@ -23,13 +23,10 @@ APPEND_SLASH = True
 # 서버
 if platform.system() == 'Linux':
     DEBUG = False
-    CUSTOM_BASE_DIR = '/ki/'
-    MOUNT_DIR = '/mnt'
+
 # 로컬
 if platform.system() == 'Windows':
     DEBUG = True
-    CUSTOM_BASE_DIR = 'D:/KI/'
-    MOUNT_DIR = 'D:/mnt'
 
 # Application definition
 INSTALLED_APPS = [
