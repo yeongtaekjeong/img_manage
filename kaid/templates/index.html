@@ -55,15 +55,19 @@
     <span><i class="ft-globe"></i> 대륙 및 국가</span>
     <hr class="mt-3 mb-3">
     <div class="row">
-        <div class="col">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
-              <label class="form-check-label" for="flexCheckDefault1">
-                Default checkbox
+        <div class="col-2">
+            아시아
+            {% for cn in asia_list %}
+            <div class="form-check col-6">
+              <input class="form-check-input" type="checkbox" value="" name='{{ cn.1 }}' id="{{ cn.1 }}">
+              <label class="form-check-label" for="{{ cn.1 }}">
+                {{ cn.0 }}
               </label>
             </div>
+            {% endfor %}
         </div>
-        <div class="col">
+        <div class="col-2">
+            유럽
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
               <label class="form-check-label" for="flexCheckDefault2">
@@ -72,9 +76,37 @@
             </div>
         </div>
         <div class="col">
+            아메리카
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
               <label class="form-check-label" for="flexCheckDefault3">
+                Default checkbox
+              </label>
+            </div>
+        </div>
+        <div class="col">
+            아프리카
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
+              <label class="form-check-label" for="flexCheckDefault4">
+                Default checkbox
+              </label>
+            </div>
+        </div>
+        <div class="col">
+            오세아니아
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
+              <label class="form-check-label" for="flexCheckDefault5">
+                Default checkbox
+              </label>
+            </div>
+        </div>
+        <div class="col">
+            중동
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
+              <label class="form-check-label" for="flexCheckDefault6">
                 Default checkbox
               </label>
             </div>

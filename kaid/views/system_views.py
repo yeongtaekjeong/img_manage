@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .country_data import Country
 
 #######################################################################################################################
 # 1. MethodName : [1]index
@@ -7,4 +8,7 @@ from django.shortcuts import render
 # 4. 작성일      : 2023. 12. 18.
 #######################################################################################################################
 def index(request):
-	return render(request, 'index.html')
+
+	country_all = {'asia_list' : Country.asia}
+
+	return render(request, 'index.html', country_all)
