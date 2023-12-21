@@ -32,6 +32,7 @@
     color: #A6A6A6;
 }
 </style>
+
 <div class="container-fluid search">
     <div class="row mt-5">
         <div class="col"></div>
@@ -49,6 +50,8 @@
         <div class="col"></div>
     </div>
 </div>
+
+<form action="" id="checkform">
 <div class="container-fluid checkbox mb-4" style="
     padding-right: var(--bs-gutter-x, 5.75rem);
     padding-left: var(--bs-gutter-x, 5.75rem);">
@@ -159,14 +162,24 @@
               <span class="text-dark fw-bold text-center" style="font-size: .9em;">{{ cn.0 }}</span>
             </label>
           </div>
-          <div class="col-11 fw-light" style="font-size: .85em; color:#A6A6A6">{{ cn.1 }}</div>
+          <div class="col-11 fw-light" style="font-size: .85em; color:#A6A6A6">{{ cn.2 }}</div>
         </div>
       {% endfor %}
       </div>
     </div>
-
-
     </div>
 </div>
-
+</form>
 {% include "footer.html" %}
+
+<script>
+  $('input[type=checkbox]').click(function(){
+    check_limit = 10
+
+    if ($('#checkform input[type=checkbox]:checked').length > 10) {
+      alert('10개 이상 선택할 수 없습니다.')
+      var click_id = '#' + $(this).attr('id')
+      $(click_id).prop("checked", false)
+    }
+  })
+</script>
