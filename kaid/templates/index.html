@@ -49,68 +49,123 @@
         <div class="col"></div>
     </div>
 </div>
-<div class="container-fluid checkbox" style="
+<div class="container-fluid checkbox mb-4" style="
     padding-right: var(--bs-gutter-x, 5.75rem);
     padding-left: var(--bs-gutter-x, 5.75rem);">
     <span><i class="ft-globe"></i> 대륙 및 국가</span>
-    <hr class="mt-3 mb-3">
+    <hr class="mt-3">
     <div class="row">
-        <div class="col-2">
-            아시아
-            {% for cn in asia_list %}
+        <div class="col-sm-3 mb-3">
+            <div class="row mb-3 fw-bold">아시아</div>
+            <div class="row" style="font-size: .9em;">
+            {% for cn in country.asia_list %}
+              <div class="form-check col-6">
+                <input class="form-check-input" type="checkbox" value="" name='{{ cn.1 }}' id="{{ cn.1 }}">
+                <label class="form-check-label col-12" for="{{ cn.1 }}">
+                  {{ cn.0 }}
+                </label>
+              </div>
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-sm-3 mb-3">
+            <div class="row mb-3 fw-bold">유럽</div>
+            <div class="row" style="font-size: .9em;">
+            {% for cn in country.europe_list %}
             <div class="form-check col-6">
-              <input class="form-check-input" type="checkbox" value="" name='{{ cn.1 }}' id="{{ cn.1 }}">
-              <label class="form-check-label" for="{{ cn.1 }}">
+              <input class="form-check-input" type="checkbox" value="{{ cn.1 }}" id="{{ cn.1 }}">
+              <label class="form-check-label col-12" for="{{ cn.1 }}">
                 {{ cn.0 }}
               </label>
             </div>
             {% endfor %}
-        </div>
-        <div class="col-2">
-            유럽
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
-              <label class="form-check-label" for="flexCheckDefault2">
-                Default checkbox
-              </label>
             </div>
         </div>
-        <div class="col">
-            아메리카
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3">
-              <label class="form-check-label" for="flexCheckDefault3">
-                Default checkbox
-              </label>
-            </div>
+
+        <div class="col-sm mb-3">
+          <div class="row mb-3 fw-bold">아메리카</div>
+          <div class="row" style="font-size: .9em;">
+          {% for cn in country.america_list %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ cn.1 }}" id="{{ cn.1 }}">
+            <label class="form-check-label col-12" for="{{ cn.1 }}">
+              {{ cn.0 }}
+            </label>
+          </div>
+          {% endfor %}
+          </div>
         </div>
-        <div class="col">
-            아프리카
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4">
-              <label class="form-check-label" for="flexCheckDefault4">
-                Default checkbox
-              </label>
-            </div>
+
+        <div class="col-sm mb-3">
+          <div class="row mb-3 fw-bold">아프리카</div>
+          <div class="row" style="font-size: .9em;">
+          {% for cn in country.africa_list %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ cn.1 }}" id="{{ cn.1 }}">
+            <label class="form-check-label col-12" for="{{ cn.1 }}">
+              {{ cn.0 }}
+            </label>
+          </div>
+          {% endfor %}
+          </div>
         </div>
-        <div class="col">
-            오세아니아
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5">
-              <label class="form-check-label" for="flexCheckDefault5">
-                Default checkbox
-              </label>
-            </div>
+
+        <div class="col-sm mb-3">
+          <div class="row mb-3 fw-bold">오세아니아</div>
+          <div class="row" style="font-size: .9em;">
+          {% for cn in country.oceania_list %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ cn.1 }}" id="{{ cn.1 }}">
+            <label class="form-check-label col-12" for="{{ cn.1 }}">
+              {{ cn.0 }}
+            </label>
+          </div>
+          {% endfor %}
+          </div>
         </div>
-        <div class="col">
-            중동
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
-              <label class="form-check-label" for="flexCheckDefault6">
-                Default checkbox
-              </label>
-            </div>
+
+        <div class="col-sm mb-3">
+          <div class="row mb-3 fw-bold">중동</div>
+          <div class="row justify-content-center" style="font-size: .9em;">
+          {% for cn in country.middle_east_list %}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{ cn.1 }}" id="{{ cn.1 }}">
+            <label class="form-check-label col-12" for="{{ cn.1 }}">
+              {{ cn.0 }}
+            </label>
+          </div>
+          {% endfor %}
+          </div>
         </div>
+
+    </div>
+</div>
+
+<div class="container-fluid checkbox" style="
+    padding-right: var(--bs-gutter-x, 5.75rem);
+    padding-left: var(--bs-gutter-x, 5.75rem);">
+    <span><i class="ft-map-pin"></i> 스폿 분류 </span>
+    <hr class="mt-3">
+    <div class="row justify-content-center">
+
+    <div class="col-sm">
+      <div class="row">
+      {% for cn in category %}
+        <div class="row form-check col-sm-6 mb-2">
+          <div class="col-sm" style="float: left;">
+            <input class="form-check-input" type="checkbox" value="" name='{{ cn.1 }}' id="{{ cn.1 }}">
+            <label class="form-check-label" for="{{ cn.1 }}">
+              <span class="text-dark fw-bold text-center" style="font-size: .9em;">{{ cn.0 }}</span>
+            </label>
+          </div>
+          <div class="col-11 fw-light" style="font-size: .85em; color:#A6A6A6">{{ cn.1 }}</div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+
+
     </div>
 </div>
 
