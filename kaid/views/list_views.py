@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.conf import settings
 import pandas as pd
 import os
+import json
 
 from .country_data import Country, Spot
 
@@ -30,8 +31,25 @@ def list(request):
 #######################################################################################################################
 def getListAjax(request):
     df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/sample_kr.csv', encoding='utf-8-sig', dtype=object).fillna('')
+    df = df[['폴더경로','파일이름','나라']]
     res = {}
+
     data = df.to_dict('records')
     res['data'] = data
 
     return JsonResponse(res)
+
+def getDetailAjax(request):
+    imgpath = json.loads(request.body)
+
+    df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/sample_kr.csv', encoding='utf-8-sig', dtype=object).fillna('')
+    
+    df['filepath'] = df['폴더경로']+'/'+df['파일이름']
+    df = df[df['filepath'] == imgpath]
+
+    res = {}
+
+    data = df.to_dict('records')
+    res['data'] = data
+
+    return  JsonResponse(res)

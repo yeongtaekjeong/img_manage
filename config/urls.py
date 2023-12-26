@@ -11,6 +11,7 @@ urlpatterns = [
     # list_view.py
     path('list/', list_views.list),
     path('getListAjax/', list_views.getListAjax),
+    path('getDetailAjax/', list_views.getDetailAjax),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
