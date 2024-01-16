@@ -15,11 +15,18 @@ from .country_data import Country, Spot
 #######################################################################################################################
 def list(request):
     country_all = {'asia_list' : Country.asia, 'europe_list':Country.europe, 'america_list':Country.america,
-				'africa_list':Country.africa, 'oceania_list':Country.oceania, 'middle_east_list':Country.middle_east}
-    
+            'africa_list':Country.africa, 'oceania_list':Country.oceania, 'middle_east_list':Country.middle_east}
     category_all = Spot.spot_list
+    search = {}
 
-    context = {'country' : country_all, 'category' : category_all}
+    if request.method == 'POST':
+        resdata = request.POST
+        text = resdata['search_text']
+        country = resdata.getlist('country')
+        spot = resdata.getlist('spot')
+        search = {'search_text':text, 'search_country':country, 'search_spot':spot}
+
+    context = {'country' : country_all, 'category' : category_all, 'search':search}
 
     return render(request, 'list.html', context)
 
@@ -30,10 +37,36 @@ def list(request):
 # 4. 작성일      : 2023. 12. 19.
 #######################################################################################################################
 def getListAjax(request):
-    df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/sample_kr.csv', encoding='utf-8-sig', dtype=object).fillna('')
-    df = df[['폴더경로','파일이름','나라']]
+    df = pd.DataFrame({'default':[]})
+
+    resdata = dict(json.loads(request.body))
+    txt = resdata['search_txt'].replace(' ','')
+
+    country = resdata['search_country']
+    if country not in ['[]','']:
+        country = str('|'.join(eval(country)))
+
+    spot = resdata['search_spot']
+    if spot not in ['[]','']: 
+        spot = str('|'.join(eval(spot)))
+    
+    if (txt not in ['[]','']) or (country not in ['[]','']) or (spot not in ['[]','']):
+        df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_utf.csv', encoding='utf-8-sig', dtype=object).fillna('')
+
+        if txt not in ['[]','']:
+            df = df[(df['대륙명_x'].str.contains(txt)) | (df['국가명'].str.contains(txt)) | (df['도시명'].str.contains(txt)) | 
+                    (df['도시 세부'].str.contains(txt)) | (df['명소명'].str.contains(txt)) | (df['분류'].str.contains(txt)) | 
+                    (df['(참고)기사 발행년'].str.contains(txt)) | (df['(참고)에디터'].str.contains(txt))  | (df['사진가'].str.contains(txt))]
+        
+        if country not in ['[]','']:
+            df = df[df['국가명'].str.contains(country)]
+
+        if spot not in ['[]','']:
+            df = df[df['분류'].str.contains(spot)]
+
     res = {}
 
+    # df = df[df['파일경로'].str.contains('치앙마이')]
     data = df.to_dict('records')
     res['data'] = data
 
@@ -46,9 +79,9 @@ def getDetailAjax(request):
     
     df['filepath'] = df['폴더경로']+'/'+df['파일이름']
     df = df[df['filepath'] == imgpath]
+    df['폴더경로'] = str(df['폴더경로'].iloc[0]).replace('/SHOOT','/SHOOT_OG')
 
     res = {}
-
     data = df.to_dict('records')
     res['data'] = data
 

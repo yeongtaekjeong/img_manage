@@ -1,33 +1,51 @@
 $(document).ready(function() {
-    $.ajax({
-        type: 'POST',
-        url: '/getListAjax/',
-        data: {},
-        dataType : 'JSON',
-        contentType: "application/json",
-        success: function(data){
-            var col = 6  // 한 줄에 표시할 목록 개수
-            var screen_h = String(parseInt(window.innerHeight / col)) + "px";
-            range = ((data.data.length / 6) + 1) * 6
-            html = ""
-            for (i=0 ; i<range ; i++) {
-                if (i % col == 0) html += '<div class="row flex">'
-                if (data.data.length > i) {
-                html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
-                html += '<img src="/media'+data.data[i]['폴더경로']+'/'+data.data[i]['파일이름']+'" onclick="detail_img(this)" style="width:100%; height:82%">'
-                html += '<p>'+data.data[i]['나라']+' ＞ 여수,순천 </p>'
-                html += '</div>' } else { html += '<div class="col"></div>' }
-                if (i % col == col-1) html += '</div>'
+  var search_txt = $('#search1').val()
+  var search_country = $('#search2').val()
+  var search_spot = $('#search3').val()
+  data = {'search_txt':search_txt,'search_country':search_country,'search_spot':search_spot}
+
+  $.ajax({
+      type: 'POST',
+      url: '/getListAjax/',
+      data: JSON.stringify(data),
+      dataType : 'JSON',
+      contentType: "application/json",
+      success: function(data){
+        var col = 6  // 한 줄에 표시할 목록 개수
+        var screen_h = String(parseInt(window.innerHeight / col)) + "px";
+        range = ((data.data.length / 6) + 1) * 6
+        html = ''
+        if (data.data.length != 0) {
+          for (i=0 ; i<range ; i++) {
+            if (i % col == 0) { 
+              html += '<div class="row" width="100%" id="rowbox">'
             }
-            $('.list').html(html)
-        },
-        error:function(request, status, error) {
-            alert("code:"+request.status+"\n"+"error:"+error);
-        },
-    });
+            if (data.data.length > i) {
+            html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
+            html += '<img src="/media/'+data.data[i]['img_path']+'" onclick="detail_img(this)"'+
+                    'onerror="this.onerror=null; this.src=\'../static/img/noimg.png\';" style="width:100%; height:82%">'
+            html += '<p>'+data.data[i]['국가명']+' '+data.data[i]['도시명']+'</p>'
+            html += '</div>' } else { html += '<div class="col"></div>' }
+            if (i % col == col-1) html += '</div></br>'
 
+            // rowbox = $('.list #rowbox').last().children().length
+          }
+        }
+        else {
+          html += '<div class="row flex" id="rowbox">검색 결과가 없습니다.</div>'
+        }
 
-})
+        $('.list').html(html)
+      },
+      error:function(request, status, error) {
+          alert("code:"+request.status+"\n"+"error:"+error);
+      },
+  })
+});
+
+// function remove_img(element) {
+//   $(element).parent().remove()
+// }
 
 function detail_img(element) {
   var screen_h = String(parseInt(window.innerHeight * 0.6)) + "px";
@@ -67,6 +85,11 @@ function detail_img(element) {
   });
 }
 
+
+function submit_form(element) {
+  $(element).closest("form").submit()
+}
+
 function detail_close() {
   $('#detail-area').empty()
 }
@@ -80,7 +103,6 @@ $('input[type=checkbox]').click(function(){
     $(click_id).prop("checked", false)
   }
 })
-
 
 // lazy load : 스크롤 내리면 조회되는 기능(사용자 불편함 감소를 위함)
 document.addEventListener("DOMContentLoaded", function() {
