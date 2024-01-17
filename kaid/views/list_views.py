@@ -42,33 +42,42 @@ def getListAjax(request):
     resdata = dict(json.loads(request.body))
     txt = resdata['search_txt'].replace(' ','')
 
+    except_list = ['[]','']
     country = resdata['search_country']
-    if country not in ['[]','']:
+    if country not in except_list:
         country = str('|'.join(eval(country)))
 
     spot = resdata['search_spot']
-    if spot not in ['[]','']: 
+    if spot not in except_list: 
         spot = str('|'.join(eval(spot)))
     
-    if (txt not in ['[]','']) or (country not in ['[]','']) or (spot not in ['[]','']):
+    if (txt not in except_list) or (country not in except_list) or (spot not in except_list):
         df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_utf.csv', encoding='utf-8-sig', dtype=object).fillna('')
 
-        if txt not in ['[]','']:
+        if txt not in except_list:
             df = df[(df['대륙명_x'].str.contains(txt)) | (df['국가명'].str.contains(txt)) | (df['도시명'].str.contains(txt)) | 
                     (df['도시 세부'].str.contains(txt)) | (df['명소명'].str.contains(txt)) | (df['분류'].str.contains(txt)) | 
                     (df['(참고)기사 발행년'].str.contains(txt)) | (df['(참고)에디터'].str.contains(txt))  | (df['사진가'].str.contains(txt))]
         
-        if country not in ['[]','']:
+        if country not in except_list:
             df = df[df['국가명'].str.contains(country)]
 
-        if spot not in ['[]','']:
+        if spot not in except_list:
             df = df[df['분류'].str.contains(spot)]
 
     res = {}
+    allcount = len(df)
+    res['allcount'] = allcount
 
-    # df = df[df['파일경로'].str.contains('치앙마이')]
+    # 한 화면에 보여줄 개수 설정
+    std_display = 300
+    num = (resdata['page_number']-1) * std_display
+    df = df[num:num+std_display]
+
     data = df.to_dict('records')
+    res['std_display'] = std_display
     res['data'] = data
+    
 
     return JsonResponse(res)
 

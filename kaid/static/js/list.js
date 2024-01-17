@@ -1,51 +1,142 @@
+var paging_div = 0
+var paging_std = 10
+
 $(document).ready(function() {
   var search_txt = $('#search1').val()
   var search_country = $('#search2').val()
   var search_spot = $('#search3').val()
-  data = {'search_txt':search_txt,'search_country':search_country,'search_spot':search_spot}
+  senddata = {'search_txt':search_txt,'search_country':search_country,'search_spot':search_spot}
+  paging_set(1)
+  search_checked(search_txt, search_country, search_spot)
+});
+
+function paging_set(num) {
+  var page_number = num
+  senddata['page_number'] = page_number
+
+  page_state_mv(num)
 
   $.ajax({
-      type: 'POST',
-      url: '/getListAjax/',
-      data: JSON.stringify(data),
-      dataType : 'JSON',
-      contentType: "application/json",
-      success: function(data){
-        var col = 6  // 한 줄에 표시할 목록 개수
-        var screen_h = String(parseInt(window.innerHeight / col)) + "px";
-        range = ((data.data.length / 6) + 1) * 6
-        html = ''
-        if (data.data.length != 0) {
-          for (i=0 ; i<range ; i++) {
-            if (i % col == 0) { 
-              html += '<div class="row" width="100%" id="rowbox">'
-            }
-            if (data.data.length > i) {
+    type: 'POST',
+    url: '/getListAjax/',
+    data: JSON.stringify(senddata),
+    dataType : 'JSON',
+    contentType: "application/json",
+    success: function(data){
+      var col = 6  // 한 줄에 표시할 목록 개수
+      var screen_h = String(parseInt(window.innerHeight / col)) + "px";
+      var count = data.data.length
+      var range = ((count / col) + 1) * col
+      var html = ''
+      var pagehtml = ''
+
+      var paging = parseInt(data.allcount / data.std_display) + 1
+
+      var counthtml = '<div class="align-self-center" style="text-align:right;">총 '+data.allcount+'건의 결과</div>'
+      $('#count_display').html(counthtml)
+       // 사진 리스트 html
+      if (count != 0) {
+        for (i=0; i<range ; i++) {
+          if (i % col == 0) { 
+            html += '<div class="row" width="100%" id="rowbox">'
+          }
+          if (count > i) {
             html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
             html += '<img src="/media/'+data.data[i]['img_path']+'" onclick="detail_img(this)"'+
                     'onerror="this.onerror=null; this.src=\'../static/img/noimg.png\';" style="width:100%; height:82%">'
             html += '<p>'+data.data[i]['국가명']+' '+data.data[i]['도시명']+'</p>'
-            html += '</div>' } else { html += '<div class="col"></div>' }
-            if (i % col == col-1) html += '</div></br>'
+            html += '</div>' } 
+          else { html += '<div class="col"></div>' }
 
-            // rowbox = $('.list #rowbox').last().children().length
+          if (i % col == col-1) html += '</div></br>'
+        }
+
+        // 페이징 html
+        pagehtml += '<ul class="pagination pagination" width="100%">'
+        start = (paging_div*paging_std)-(paging_std-1)
+
+        if (paging_div >= 2) {
+          pagehtml += '<li id="page_btn" class="page-item" aria-current="page" onclick="paging_set('+(start-1)+')">'
+          pagehtml += '<span class="page-link">&laquo;</span></li>'
+        }
+
+        for(i=start; i<=paging; i++) {
+          if (i==page_number) active = 'active'
+          else active = ''
+          pagehtml += '<li id="page_btn" class="page-item '+active+'" aria-current="page" onclick="paging_set('+i+')">'
+          pagehtml += '<span class="page-link">'+i+'</span></li>'
+
+          if (i%paging_std==0) {
+            pagehtml += '<li id="page_btn" class="page-item" aria-current="page" onclick="paging_set('+(i+1)+')">'
+            pagehtml += '<span class="page-link">&raquo;</span></li>'
+            break;
           }
         }
-        else {
-          html += '<div class="row flex" id="rowbox">검색 결과가 없습니다.</div>'
-        }
+        pagehtml += '</ul>'
+      }
+      else {
+        html += '<div class="row flex" id="rowbox">검색 결과가 없습니다.</div>'
+      }
 
-        $('.list').html(html)
-      },
-      error:function(request, status, error) {
-          alert("code:"+request.status+"\n"+"error:"+error);
-      },
-  })
-});
+      $('.list').html(html)
+      $('.page').html(pagehtml)
+    },
+    error:function(request, status, error) {
+        alert("code:"+request.status+"\n"+"error:"+error);
+    },
+})
+  window.scrollTo(0,0);
+}
 
-// function remove_img(element) {
-//   $(element).parent().remove()
-// }
+// page group 위치
+function page_state_mv(n) {
+  if (n != paging_std) {
+    if (n % paging_std == 0) paging_div = parseInt(n/paging_std)
+    else paging_div = parseInt(n/paging_std) + 1
+  }
+  else {
+    paging_div = 1
+  }
+  console.log(paging_div)
+}
+
+//모달창 스크롤 현재 상태에서 띄우기
+$(".modal-btn").click(function() {
+  var scroll_y = window.scrollY
+  $('#searchModal').css('top',scroll_y)
+  $('.modal-backdrop').css('top',scroll_y)
+})
+
+//검색 조건대로 모달창의 체크박스 및 입력칸 검색 상태 동기화하기
+function search_checked(t,c,s) {
+  var country_ck = document.getElementsByName('country')
+  var spot_ck = document.getElementsByName('spot')
+
+  const regex = /[\[\]\,\']/g;
+  const c_value = c.replace(regex,'').split(' ');
+  const s_value = s.replace(regex,'').split(' ');
+
+  console.log(c_value)
+  console.log(s_value)
+  console.log(t)
+  $('input[name=search_text]').val(t)
+
+  for (i=0;i<country_ck.length;i++){
+    if(c_value.includes(country_ck[i].value)) {
+      country_ck[i].checked = true;
+    }
+  }
+  for (i=0;i<spot_ck.length;i++){
+    if(s_value.includes(spot_ck[i].value)) {
+      spot_ck[i].checked = true;
+    }
+  }
+}
+
+// form submit 동작 실행 ('검색'버튼)
+function submit_form(element) {
+  $(element).closest("form").submit()
+}
 
 function detail_img(element) {
   var screen_h = String(parseInt(window.innerHeight * 0.6)) + "px";
@@ -83,11 +174,6 @@ function detail_img(element) {
         alert("code:"+request.status+"\n"+"error:"+error);
     },
   });
-}
-
-
-function submit_form(element) {
-  $(element).closest("form").submit()
 }
 
 function detail_close() {
