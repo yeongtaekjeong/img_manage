@@ -23,7 +23,7 @@ function paging_set(num) {
     dataType : 'JSON',
     contentType: "application/json",
     success: function(data){
-      var col = 5  // 한 줄에 표시할 목록 개수
+      var col = 6  // 한 줄에 표시할 목록 개수
       var screen_h = String(parseInt(window.innerHeight / col)) + "px";
       var count = data.data.length
       var range = ((count / col) + 1) * col
