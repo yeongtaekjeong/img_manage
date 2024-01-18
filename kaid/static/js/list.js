@@ -1,5 +1,5 @@
-var paging_div = 0
-var paging_std = 10
+var paging_div = 0  // 현재 페이지 상태 변수
+var paging_std = 10  //페이지 그룹 내 숫자 범위 설정
 
 $(document).ready(function() {
   var search_txt = $('#search1').val()
@@ -30,8 +30,6 @@ function paging_set(num) {
       var html = ''
       var pagehtml = ''
 
-      var paging = parseInt(data.allcount / data.std_display) + 1
-
       var counthtml = '<div class="align-self-center" style="text-align:right;">총 '+data.allcount+'건의 결과</div>'
       $('#count_display').html(counthtml)
        // 사진 리스트 html
@@ -51,9 +49,12 @@ function paging_set(num) {
           if (i % col == col-1) html += '</div></br>'
         }
 
+        // 페이지 계산
+        start = (paging_div*paging_std)-(paging_std-1)
+        paging = parseInt(data.allcount / data.std_display) + 1
+
         // 페이징 html
         pagehtml += '<ul class="pagination pagination" width="100%">'
-        start = (paging_div*paging_std)-(paging_std-1)
 
         if (paging_div >= 2) {
           pagehtml += '<li id="page_btn" class="page-item" aria-current="page" onclick="paging_set('+(start-1)+')">'
@@ -66,7 +67,7 @@ function paging_set(num) {
           pagehtml += '<li id="page_btn" class="page-item '+active+'" aria-current="page" onclick="paging_set('+i+')">'
           pagehtml += '<span class="page-link">'+i+'</span></li>'
 
-          if (i%paging_std==0) {
+          if (i%paging_std==0 && data.allcount>data.std_display*paging_std*paging_div) {
             pagehtml += '<li id="page_btn" class="page-item" aria-current="page" onclick="paging_set('+(i+1)+')">'
             pagehtml += '<span class="page-link">&raquo;</span></li>'
             break;
