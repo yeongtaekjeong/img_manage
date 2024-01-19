@@ -52,10 +52,10 @@ def getListAjax(request):
         spot = str('|'.join(eval(spot)))
     
     if (txt not in except_list) or (country not in except_list) or (spot not in except_list):
-        df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_utf.csv', encoding='utf-8-sig', dtype=object).fillna('')
+        df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_2_utf.csv', encoding='utf-8-sig', dtype=object).fillna('')
 
         if txt not in except_list:
-            df = df[(df['대륙명_x'].str.contains(txt)) | (df['국가명'].str.contains(txt)) | (df['도시명'].str.contains(txt)) | 
+            df = df[(df['대륙명'].str.contains(txt)) | (df['국가명'].str.contains(txt)) | (df['도시명'].str.contains(txt)) | (df['(참고)페이지번호_기사_폴더이름'].str.contains(txt)) |
                     (df['도시 세부'].str.contains(txt)) | (df['명소명'].str.contains(txt)) | (df['분류'].str.contains(txt)) | 
                     (df['(참고)기사 발행년'].str.contains(txt)) | (df['(참고)에디터'].str.contains(txt))  | (df['사진가'].str.contains(txt))]
         

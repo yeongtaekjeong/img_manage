@@ -30,17 +30,21 @@ function paging_set(num) {
       var html = ''
       var pagehtml = ''
 
+      // if (img_path.indexOf('#') != -1) img_path.replace('#','\\#')
+
       var counthtml = '<div class="align-self-center" style="text-align:right;">총 '+data.allcount+'건의 결과</div>'
       $('#count_display').html(counthtml)
        // 사진 리스트 html
       if (count != 0) {
         for (i=0; i<range ; i++) {
+
           if (i % col == 0) { 
             html += '<div class="row" width="100%" id="rowbox">'
           }
           if (count > i) {
+            var img_path = String(data.data[i]['img_path_y'])
             html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
-            html += '<img src="/media/'+data.data[i]['img_path']+'" onclick="detail_img(this)"'+
+            html += '<img src="/media/'+img_path+'" onclick="detail_img(this)"'+
                     'onerror="this.onerror=null; this.src=\'../static/img/noimg.png\';" style="width:100%; height:82%">'
             html += '<p>'+data.data[i]['국가명']+' '+data.data[i]['도시명']+'</p>'
             html += '</div>' } 
@@ -85,6 +89,13 @@ function paging_set(num) {
     error:function(request, status, error) {
         alert("code:"+request.status+"\n"+"error:"+error);
     },
+    beforeSend: function () {
+      $('.list').empty()
+      $('.page').empty()
+      $('.list').append('<div class="d-flex justify-content-center mt-5">' +
+        '<div class="spinner-border text-info" role="status">' +
+        '<span class="visually-hidden">Loading...</span></div></div>')
+    }
 })
   window.scrollTo(0,0);
 }
