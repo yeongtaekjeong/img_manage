@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.conf import settings
+# from django.conf import settings
 import pandas as pd
 import os
 import json
