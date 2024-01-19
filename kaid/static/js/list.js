@@ -43,6 +43,7 @@ function paging_set(num) {
           }
           if (count > i) {
             var img_path = String(data.data[i]['img_path_y'])
+            console.log(img_path)
             html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
             html += '<img src="/media/'+img_path+'" onclick="detail_img(this)"'+
                     'onerror="this.onerror=null; this.src=\'../static/img/noimg.png\';" style="width:100%; height:82%">'
