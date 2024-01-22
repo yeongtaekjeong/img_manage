@@ -171,7 +171,7 @@ function detail_img(element) {
     data: JSON.stringify(imgpath),
     contentType: "application/json",
     success: function(data){
-      org_img_path = "/media/fileserver/Back-up/AGCOMM_DB/★ABROAD_2015-2021_FINAL" + data.data[0]['img_path_y']
+      org_img_path = "/media/★ABROAD_2015-2021_FINAL - 바로 가기.lnk/fileserver/Back-up/AGCOMM_DB/★ABROAD_2015-2021_FINAL" + data.data[0]['img_path_y']
       console.log(org_img_path)
       //대륙명,국가명,도시명,도시 세부,폴더명,file_name_x,명소명,분류,촬영시기,(참고)기사 발행년,(참고)월,(참고)페이지번호_기사_폴더이름,(참고)에디터,사진가,비고,merge_path,img_path_y,name,extension,file_name_y
       html = ""
