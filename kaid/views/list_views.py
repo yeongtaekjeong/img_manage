@@ -52,7 +52,7 @@ def getListAjax(request):
         spot = str('|'.join(eval(spot)))
     
     if (txt not in except_list) or (country not in except_list) or (spot not in except_list):
-        df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_2_utf.csv', encoding='utf-8-sig', dtype=object).fillna('')
+        df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_2.csv', encoding='cp949', dtype=object).fillna('')
 
         if txt not in except_list:
             df = df[(df['대륙명'].str.contains(txt)) | (df['국가명'].str.contains(txt)) | (df['도시명'].str.contains(txt)) | (df['(참고)페이지번호_기사_폴더이름'].str.contains(txt)) |
@@ -84,12 +84,10 @@ def getListAjax(request):
 def getDetailAjax(request):
     imgpath = json.loads(request.body)
 
-    df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/sample_kr.csv', encoding='utf-8-sig', dtype=object).fillna('')
+    df = pd.read_csv(f'{os.getcwd()}/kaid/static/data/merge_img_path_2.csv', encoding='cp949', dtype=object).fillna('')
     
-    df['filepath'] = df['폴더경로']+'/'+df['파일이름']
-    df = df[df['filepath'] == imgpath]
-    df['폴더경로'] = str(df['폴더경로'].iloc[0]).replace('/SHOOT','/SHOOT_OG')
-
+    df = df[df['img_path_y'] == imgpath]
+    df['img_path_y'] = str(df['img_path_y'].iloc[0])
     res = {}
     data = df.to_dict('records')
     res['data'] = data

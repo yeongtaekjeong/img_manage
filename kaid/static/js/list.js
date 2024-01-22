@@ -14,7 +14,11 @@ function paging_set(num) {
   var page_number = num
   senddata['page_number'] = page_number
 
+  //페이징 상태 변경
   page_state_mv(num)
+
+  //상세 이미지 clear
+  $('#detail-area').empty()
 
   $.ajax({
     type: 'POST',
@@ -31,9 +35,10 @@ function paging_set(num) {
       var pagehtml = ''
 
       // if (img_path.indexOf('#') != -1) img_path.replace('#','\\#')
-
+      
       var counthtml = '<div class="align-self-center" style="text-align:right;">총 '+data.allcount+'건의 결과</div>'
       $('#count_display').html(counthtml)
+
        // 사진 리스트 html
       if (count != 0) {
         for (i=0; i<range ; i++) {
@@ -110,7 +115,6 @@ function page_state_mv(n) {
   else {
     paging_div = 1
   }
-  console.log(paging_div)
 }
 
 //모달창 스크롤 현재 상태에서 띄우기
@@ -129,9 +133,7 @@ function search_checked(t,c,s) {
   const c_value = c.replace(regex,'').split(' ');
   const s_value = s.replace(regex,'').split(' ');
 
-  console.log(c_value)
-  console.log(s_value)
-  console.log(t)
+
   $('input[name=search_text]').val(t)
 
   for (i=0;i<country_ck.length;i++){
@@ -151,10 +153,16 @@ function submit_form(element) {
   $(element).closest("form").submit()
 }
 
+//이미지 상세 정보
 function detail_img(element) {
   var screen_h = String(parseInt(window.innerHeight * 0.6)) + "px";
   var imgpath = element.getAttribute('src')
-  imgpath = imgpath.replace('/media','')
+  imgpath = imgpath.replace('/media/','')
+
+  img_list = document.querySelectorAll('#listimg')
+
+  $('.border').animate({opacity:'1'});
+  $('.border').removeClass('border border-danger border-5')
 
   $.ajax({
     type: 'POST',
@@ -163,29 +171,42 @@ function detail_img(element) {
     data: JSON.stringify(imgpath),
     contentType: "application/json",
     success: function(data){
+      org_img_path = "/media/fileserver/Back-up/AGCOMM_DB/★ABROAD_2015-2021_FINAL" + data.data[0]['img_path_y']
+      console.log(org_img_path)
+      //대륙명,국가명,도시명,도시 세부,폴더명,file_name_x,명소명,분류,촬영시기,(참고)기사 발행년,(참고)월,(참고)페이지번호_기사_폴더이름,(참고)에디터,사진가,비고,merge_path,img_path_y,name,extension,file_name_y
       html = ""
       html += '<div class="row">'
       html += '<div class="col-sm-6" style="height:'+screen_h+';">'
-      html += '<img src="/media'+data.data[0]['폴더경로']+'/'+data.data[0]['파일이름']+'" style="width:100%; height:90%"></div>'
+      html += '<img src="'+org_img_path+'" style="width:100%; height:90%"'+
+              'onerror="this.onerror=null; this.src=\'/media/'+data.data[0]['img_path_y']+'\'";></div>'
       html += '<div class="col-sm-4 ms-2 mb-2">'
       html += '<p class="align-text-end btn-close" onclick="detail_close()"></p>'
-      html += '<p class="mb-1">발행 : '+data.data[0]['발행']+'</p>'
-      html += '<p class="mb-1">폴더이름 : '+data.data[0]['폴더경로']+'</p>'
-      html += '<p class="mb-1">에디터 : '+data.data[0]['에디터']+'</p>'
+      html += '<p class="mb-1">발행 : '+data.data[0]['(참고)기사 발행년']+'</p>'
+      html += '<p class="mb-1">폴더이름 : '+data.data[0]['img_path_y']+'</p>'
+      html += '<p class="mb-1">에디터 : '+data.data[0]['(참고)에디터']+'</p>'
       html += '<p class="mb-1">사진가 : '+data.data[0]['사진가']+'</p>'
       html += '<p class="mb-1">촬영시기 : '+data.data[0]['촬영시기']+'</p>'
-      html += '<p class="mb-1">사진파일명 : '+data.data[0]['파일이름']+'</p>'
-      html += '<p class="mb-1">상호명(명소명) : '+data.data[0]['상호명']+'</p>'
-      html += '<p class="mb-1">국가 : '+data.data[0]['나라']+'</p>'
+      html += '<p class="mb-1">사진파일명 : '+data.data[0]['file_name_y']+'</p>'
+      html += '<p class="mb-1">상호명(명소명) : '+data.data[0]['명소명']+'</p>'
+      html += '<p class="mb-1">국가 : '+data.data[0]['국가명']+'</p>'
       html += '<p class="mb-1">분류 : '+data.data[0]['분류']+'</p>'
-      html += '<p class="mb-1">도시 : '+data.data[0]['도시']+'</p>'
+      html += '<p class="mb-1">도시 : '+data.data[0]['도시명']+'</p>'
       html += '</div></div>'
       
       $('#detail-area').html(html)
+      $(element).addClass('border border-danger border-5')
+      $(element).animate({opacity:'0.4'});
     },
     error:function(request, status, error) {
         alert("code:"+request.status+"\n"+"error:"+error);
     },
+    beforeSend: function () {
+      window.scrollTo(0,0);
+      $('#detail-area').empty()
+      $('#detail-area').append('<div class="d-flex justify-content-center mt-5">' +
+        '<div class="spinner-border text-info" role="status">' +
+        '<span class="visually-hidden">Loading...</span></div>이미지를 불러오는 중입니다</div>')
+    }
   });
 }
 
