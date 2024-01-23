@@ -90,6 +90,7 @@ def getDetailAjax(request):
     df['img_path_y'] = str(df['img_path_y'].iloc[0])
     res = {}
     data = df.to_dict('records')
+    print(data)
     res['data'] = data
 
     return  JsonResponse(res)

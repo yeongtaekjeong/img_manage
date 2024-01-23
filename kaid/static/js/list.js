@@ -50,7 +50,7 @@ function paging_set(num) {
             var img_path = String(data.data[i]['img_path_y'])
             console.log(img_path)
             html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
-            html += '<img src="/media/'+img_path+'" onclick="detail_img(this)"'+
+            html += '<img src="/media/low_img/'+img_path+'" onclick="detail_img(this)"'+
                     'onerror="this.onerror=null; this.src=\'../static/img/noimg.png\';" style="width:100%; height:82%">'
             html += '<p>'+data.data[i]['국가명']+' '+data.data[i]['도시명']+'</p>'
             html += '</div>' } 
@@ -157,7 +157,7 @@ function submit_form(element) {
 function detail_img(element) {
   var screen_h = String(parseInt(window.innerHeight * 0.6)) + "px";
   var imgpath = element.getAttribute('src')
-  imgpath = imgpath.replace('/media/','')
+  imgpath = imgpath.replace('/media/low_img/','')
 
   img_list = document.querySelectorAll('#listimg')
 
@@ -171,14 +171,16 @@ function detail_img(element) {
     data: JSON.stringify(imgpath),
     contentType: "application/json",
     success: function(data){
-      org_img_path = data.data[0]['img_path_y']
+      org_img_path = imgpath.replace('media/SHOOT','')
+      org_img_path = '/media'+data.data[0]['img_path_y']
       console.log(org_img_path)
+      console.log('/media/low_img'+data.data[0]['img_path_y'])
       //대륙명,국가명,도시명,도시 세부,폴더명,file_name_x,명소명,분류,촬영시기,(참고)기사 발행년,(참고)월,(참고)페이지번호_기사_폴더이름,(참고)에디터,사진가,비고,merge_path,img_path_y,name,extension,file_name_y
       html = ""
       html += '<div class="row">'
       html += '<div class="col-sm-6" style="height:'+screen_h+';">'
       html += '<img src="'+org_img_path+'" style="width:100%; height:90%"'+
-              'onerror="this.onerror=null; this.src=\'/media/'+data.data[0]['img_path_y']+'\'";></div>'
+              'onerror="this.onerror=null; this.src=\'/media/low_img'+data.data[0]['img_path_y']+'\'";></div>'
       html += '<div class="col-sm-4 ms-2 mb-2">'
       html += '<p class="align-text-end btn-close" onclick="detail_close()"></p>'
       html += '<p class="mb-1">발행 : '+data.data[0]['(참고)기사 발행년']+'</p>'
