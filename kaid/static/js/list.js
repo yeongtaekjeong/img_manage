@@ -156,7 +156,7 @@ function submit_form(element) {
 function detail_img(element) {
   var screen_h = String(parseInt(window.innerHeight * 0.6)) + "px";
   var imgpath = element.getAttribute('src')
-  imgpath = imgpath.replace('/media/','')
+  imgpath = imgpath.replace('/media/SHOOT/low_img','')
 
   img_list = document.querySelectorAll('#listimg')
 
