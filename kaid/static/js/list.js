@@ -178,7 +178,7 @@ function detail_img(element) {
       html += '<div class="row">'
       html += '<div class="col-sm-6" style="height:'+screen_h+';">'
       html += '<img src="'+org_img_path+'" style="width:100%; height:90%"'+
-              'onerror="this.onerror=null; this.src=\'/media/low_img'+data.data[0]['img_path_y']+'\'";></div>'
+              'onerror="this.onerror=null; this.src=\'/media/SHOOT/low_img'+data.data[0]['img_path_y']+'\'";></div>'
       html += '<div class="col-sm-4 ms-2 mb-2">'
       html += '<p class="align-text-end btn-close" onclick="detail_close()"></p>'
       html += '<p class="mb-1">발행 : '+data.data[0]['(참고)기사 발행년']+'</p>'
