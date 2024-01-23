@@ -49,7 +49,7 @@ function paging_set(num) {
           if (count > i) {
             var img_path = String(data.data[i]['img_path_y'])
             html += '<div class="col-sm mb-2" id="listimg" style="height:'+screen_h+'; cursor:pointer">'
-            html += '<img src="/media/low_img'+img_path+'" onclick="detail_img(this)"'+
+            html += '<img src="/media/SHOOT/low_img'+img_path+'" onclick="detail_img(this)"'+
                     'onerror="this.onerror=null; this.src=\'../static/img/noimg.png\';" style="width:100%; height:82%">'
             html += '<p>'+data.data[i]['국가명']+' '+data.data[i]['도시명']+'</p>'
             html += '</div>' } 
@@ -156,7 +156,7 @@ function submit_form(element) {
 function detail_img(element) {
   var screen_h = String(parseInt(window.innerHeight * 0.6)) + "px";
   var imgpath = element.getAttribute('src')
-  imgpath = imgpath.replace('/media/low_img/','')
+  imgpath = imgpath.replace('/media/','')
 
   img_list = document.querySelectorAll('#listimg')
 
@@ -170,7 +170,6 @@ function detail_img(element) {
     data: JSON.stringify(imgpath),
     contentType: "application/json",
     success: function(data){
-      org_img_path = imgpath.replace('media/SHOOT','')
       org_img_path = '/media'+data.data[0]['img_path_y']
       console.log(org_img_path)
       console.log('/media/low_img'+data.data[0]['img_path_y'])
