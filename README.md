@@ -1,13 +1,6 @@
-# 에이지 커뮤니케이션
+2023.12.18~2024.01.19(1명)
 
-## 화면 시안 1 - 통합 검색
-![image](https://github.com/github-kca/agcomm/assets/129153132/304b75de-8369-4424-8bfa-e87d9eabf1c5)
-
-## 화면 시안 2 - 사진 리스트
-![image](https://github.com/github-kca/agcomm/assets/129153132/0d0a538f-4ccf-47a5-8f5d-e836410245fd)
-
-## 화면 시안 3 - 상세 검색
-![image](https://github.com/github-kca/agcomm/assets/129153132/f8af426e-ebc2-4ac6-997f-3433aea7def5)
-
-## 화면 시안 4 - 상세 화면
-![image](https://github.com/github-kca/agcomm/assets/129153132/eea38f43-5318-448d-9db6-c80dc58a210e)
+잡지사가 가진 16TB 용량의 이미지를 조회하고, 검색할 수 있는 시스템 구축 
+- 나라별, 테마별 검색 지원
+- 페이징 처리
+- 썸네일용 이미지 클릭 시 원본 이미지 경로를 못찾을 경우 썸네일용 이미지로 대체하여 조회
